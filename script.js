@@ -196,3 +196,26 @@ styleSheet.textContent = `
     }
 `;
 document.head.appendChild(styleSheet);
+
+// Handle form submission and redirect
+document.querySelector('form[name="lead-capture"]').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    fetch('/', {
+        method: 'POST',
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString()
+    })
+    .then(response => {
+        if (response.ok) {
+            // Redirect to affiliate link after successful form submission
+            window.location.href = 'https://affiliates.gohighlevel.com/?fp_ref=1lj1q';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
